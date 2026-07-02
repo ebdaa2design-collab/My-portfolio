@@ -1,0 +1,107 @@
+// ==========================
+// Smooth Reveal Animation
+// ==========================
+
+const observer = new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+        }
+
+    });
+
+}, {
+    threshold: 0.15
+});
+
+document.querySelectorAll(".card,.item,.title,.hero-content,.social")
+.forEach(el => {
+
+    el.classList.add("hidden");
+
+    observer.observe(el);
+
+});
+
+// ==========================
+// Header Shadow
+// ==========================
+
+window.addEventListener("scroll", () => {
+
+    const header = document.querySelector("header");
+
+    if (window.scrollY > 40) {
+        header.style.boxShadow = "0 10px 30px rgba(0,0,0,.35)";
+    } else {
+        header.style.boxShadow = "none";
+    }
+
+});
+
+// ==========================
+// Scroll To Top Button
+// ==========================
+
+const topBtn = document.createElement("button");
+
+topBtn.innerHTML = "↑";
+
+topBtn.className = "top-btn";
+
+document.body.appendChild(topBtn);
+
+window.addEventListener("scroll", () => {
+
+    if (window.scrollY > 400) {
+
+        topBtn.classList.add("active");
+
+    } else {
+
+        topBtn.classList.remove("active");
+
+    }
+
+});
+
+topBtn.onclick = () => {
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+};
+
+// ==========================
+// Gallery Hover Effect
+// ==========================
+
+document.querySelectorAll(".item").forEach(item=>{
+
+item.addEventListener("mousemove",(e)=>{
+
+const rect=item.getBoundingClientRect();
+
+const x=e.clientX-rect.left;
+
+const y=e.clientY-rect.top;
+
+item.style.transform=`rotateX(${(y-150)/25}deg)
+rotateY(${-(x-150)/25}deg)`;
+
+});
+
+item.addEventListener("mouseleave",()=>{
+
+item.style.transform="rotateX(0) rotateY(0)";
+
+});
+
+});
